@@ -1,4 +1,8 @@
-# sv
+# Lodiped
+
+This is the repository for [`lodiped`](https://lodiped.com/)'s portfolio.
+
+---
 
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
