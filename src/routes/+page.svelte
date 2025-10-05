@@ -1,31 +1,31 @@
 <script lang="ts">
-	import { getUserLanguage, lang } from '$lib/lang.svelte';
+	import { lang } from '$lib/lang.svelte';
+	import { getLastfm, lastfm } from '$lib/lastfm.svelte';
 	import { onMount } from 'svelte';
 
-	onMount(() => {
-		getUserLanguage();
+	let loadedAlbum = $state(false);
+	onMount(async () => {
+		await getLastfm();
+		loadedAlbum = true;
+		console.log(lastfm.val.topalbums.album);
 	});
 </script>
 
 {#if lang.val.substring(0, 2) === 'pt'}
-	<h1 class="text-xl">Bem-vindo a Lodiped.com</h1>
+	<h1 class="text-6xl">Bem-vindo a Lodiped.com</h1>
 {:else}
-	<h1 class="text-xl">Welcome to Lodiped.com</h1>
+	<h1 class="text-6xl">Welcome to Lodiped.com</h1>
 {/if}
 
-<button
-	class="cursor-pointer rounded-xl border p-3 text-sm opacity-50 transition-opacity hover:opacity-100 active:drop-shadow-[0_0_10px_rgba(255,255,255,0.6)]"
-	onclick={() => {
-		if (lang.val.substring(0, 2) === 'pt') {
-			lang.val = 'en';
-		} else {
-			lang.val = 'pt';
-		}
-	}}
->
-	{#if lang.val.substring(0, 2) === 'pt'}
-		English
-	{:else}
-		Português
+<div>Front-end web development</div>
+<div>Graphic Design</div>
+<div>Video production & editing</div>
+<div>Photography</div>
+
+<div>
+	{#if loadedAlbum}
+		{#each lastfm.val.topalbums.album as albuma, i}
+			<div>{albuma.artist.name}, {albuma.name}</div>
+		{/each}
 	{/if}
-</button>
+</div>
