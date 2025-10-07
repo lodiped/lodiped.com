@@ -7,7 +7,6 @@
 	onMount(async () => {
 		await getLastfm();
 		loadedAlbum = true;
-		console.log(lastfm.val.topalbums.album);
 	});
 </script>
 
@@ -22,10 +21,20 @@
 <div>Video production & editing</div>
 <div>Photography</div>
 
-<div>
+<div class="flex flex-col gap-2">
 	{#if loadedAlbum}
 		{#each lastfm.val.topalbums.album as albuma, i}
-			<div>{albuma.artist.name}, {albuma.name}</div>
+			<div class="flex gap-2">
+				<div class="min-h-5">
+					<img src={albuma.image[1]['#text']} alt="" />
+				</div>
+				<div>
+					<div class="text-bold text-lg">{albuma.name}</div>
+					<div class="opacity-50">
+						{albuma.artist.name}
+					</div>
+				</div>
+			</div>
 		{/each}
 	{/if}
 </div>
